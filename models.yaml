@@ -9,7 +9,7 @@ models:
   bge-m3:
     task: embedding
     ir: /models/bge-m3/openvino_model.xml
-    tokenizer: BAAI/bge-m3
+    tokenizer: /models/bge-m3/tokenizer      # baked; startup needs no network
     pooling: mean
     normalize: true
     max_length: 512
@@ -17,7 +17,7 @@ models:
   bge-reranker-v2-m3:
     task: rerank
     ir: /models/bge-reranker-v2-m3/openvino_model.xml
-    tokenizer: BAAI/bge-reranker-v2-m3
+    tokenizer: /models/bge-reranker-v2-m3/tokenizer   # baked; startup needs no network
     activate: sigmoid
     max_length: 512
     batch_size: 16

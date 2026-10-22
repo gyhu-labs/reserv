@@ -56,7 +56,7 @@ models:
   bge-m3:
     task: embedding
     ir: /models/bge-m3/openvino_model.xml
-    tokenizer: BAAI/bge-m3
+    tokenizer: /models/bge-m3/tokenizer   # baked into the image: no network at boot
     pooling: mean           # mean | cls
     normalize: true
   bge-reranker-v2-m3:

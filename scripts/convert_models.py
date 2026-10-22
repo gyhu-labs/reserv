@@ -45,8 +45,12 @@ def convert(name: str, out_dir: Path, weight_format: str) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     target = out_dir / "openvino_model.xml"
     ov.save_model(ov_model, target, compress_to_fp16=(weight_format == "fp16"))
+    # Bake the tokenizer too: a pod must start with no network access.
+    from transformers import AutoTokenizer
+
+    AutoTokenizer.from_pretrained(spec["repo"]).save_pretrained(out_dir / "tokenizer")
     size_mb = (out_dir / "openvino_model.bin").stat().st_size / 1e6
-    print(f"converted {name} -> {target} ({size_mb:.0f} MB, {weight_format})", flush=True)
+    print(f"converted {name} -> {target} ({size_mb:.0f} MB, {weight_format}) + tokenizer", flush=True)
 
 
 def main() -> int:
