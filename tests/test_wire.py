@@ -112,6 +112,25 @@ def test_backpressure_returns_429():
     assert r.status_code == 429 and "retry_after" in r.json()["error"]
 
 
+def test_port_env_survives_kubernetes_service_link(monkeypatch):
+    """A Service named `reserv` injects RESERV_PORT=tcp://host:8080; boot must not crash."""
+    import os
+    import tempfile
+
+    from reserv.config import load_settings
+
+    cfg = {"models": {"m": {"task": "embedding", "ir": "/x", "tokenizer": "y"}}}
+    with tempfile.NamedTemporaryFile("w", suffix=".yaml", delete=False) as fh:
+        import yaml
+        yaml.safe_dump(cfg, fh)
+        path = fh.name
+    s = load_settings(path, env={"RESERV_PORT": "tcp://10.54.72.68:8080"})
+    assert s.port == 8080
+    s2 = load_settings(path, env={"RESERV_PORT": "tcp://10.54.72.68:8080", "RESERV_HTTP_PORT": "9000"})
+    assert s2.port == 9000
+    os.unlink(path)
+
+
 def test_metrics_exposed():
     c = client()
     c.post("/rerank", json={"query": "q", "documents": ["x"]}, headers=AUTH)

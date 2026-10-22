@@ -67,7 +67,9 @@ models:
 ```
 
 Environment: `RESERV_DEVICE`, `RESERV_API_KEYS` (`name=token,...`; empty disables
-auth), `RESERV_CONFIG`, `RESERV_PORT`, `RESERV_MAX_CONCURRENCY`, `RESERV_QUEUE_TIMEOUT`.
+auth), `RESERV_CONFIG`, `RESERV_HTTP_PORT` (preferred; `RESERV_PORT` is accepted but
+Kubernetes injects that name for a Service called `reserv`, so the value is ignored
+when it is not numeric), `RESERV_MAX_CONCURRENCY`, `RESERV_QUEUE_TIMEOUT`.
 
 ## Operations
 

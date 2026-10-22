@@ -63,6 +63,20 @@ def parse_api_keys(raw: str | None) -> dict[str, str]:
     return keys
 
 
+def _int_env(env: dict[str, str], keys: tuple[str, ...], default: int) -> int:
+    """First key present and numeric wins. Kubernetes service links inject values
+    like RESERV_PORT=tcp://10.96.0.1:8080, so a non-numeric value must not crash boot."""
+    for key in keys:
+        raw = env.get(key)
+        if raw is None:
+            continue
+        try:
+            return int(str(raw).strip())
+        except ValueError:
+            continue
+    return default
+
+
 def load_settings(
     config_path: str | os.PathLike[str] | None = None, env: dict[str, str] | None = None
 ) -> Settings:
@@ -81,7 +95,7 @@ def load_settings(
     s = Settings(
         device=env.get("RESERV_DEVICE", raw.get("device", "GPU")),
         host=env.get("RESERV_HOST", raw.get("host", "0.0.0.0")),
-        port=int(env.get("RESERV_PORT", raw.get("port", 8080))),
+        port=_int_env(env, ("RESERV_HTTP_PORT", "RESERV_PORT"), int(raw.get("port", 8080))),
         default_model=env.get("RESERV_DEFAULT_MODEL", raw.get("default_model")),
         max_concurrency=int(env.get("RESERV_MAX_CONCURRENCY", raw.get("max_concurrency", 1))),
         queue_timeout=float(env.get("RESERV_QUEUE_TIMEOUT", raw.get("queue_timeout", 30.0))),
