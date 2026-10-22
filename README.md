@@ -82,11 +82,11 @@ auth), `RESERV_CONFIG`, `RESERV_PORT`, `RESERV_MAX_CONCURRENCY`, `RESERV_QUEUE_T
 ## Build
 
 `models.yaml` points at IRs under `/models`; CI converts them from the upstream
-weights and gates the conversion on parity against reference scores
-(`scripts/parity.py`, Spearman ≥ 0.999 and top-10 identical).
+weights with `openvino.convert_model` and gates the conversion on parity against
+torch-fp32 references (`scripts/parity.py`, Spearman ≥ 0.999 and top-10 identical).
 
 ```bash
-make models      # convert with optimum-intel (needs torch on the build host)
+make models      # convert (needs torch + transformers on the build host)
 make image       # docker buildx build
 make test        # pytest + ruff
 ```

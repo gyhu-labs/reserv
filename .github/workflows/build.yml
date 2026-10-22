@@ -30,8 +30,10 @@ jobs:
       - name: Install conversion toolchain
         run: |
           python -m pip install --upgrade pip
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install "optimum-intel[openvino]>=1.24" numpy
+          pip install "torch>=2.4" --index-url https://download.pytorch.org/whl/cpu
+          # pins kept coherent: transformers 5.x + optimum-intel is broken upstream,
+          # and we no longer use optimum-intel at all (see scripts/convert_models.py)
+          pip install "openvino==2026.4.1" "transformers>=4.46,<6" "huggingface_hub<2" numpy
       - name: Convert to IR (fp16, models baked into the image)
         run: python scripts/convert_models.py --out artifacts/models --weight-format fp16
       - name: Conversion gate (parity vs torch fp32 references)
