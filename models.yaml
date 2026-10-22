@@ -1,0 +1,23 @@
+# reserv model registry.
+# Every entry describes how to serve a converted OpenVINO IR; no model family is
+# hardcoded in the server. The image bakes both models under /models.
+device: GPU            # GPU | CPU | AUTO
+default_model: bge-reranker-v2-m3
+max_concurrency: 1     # the device serialises; more concurrency only queues
+queue_timeout: 30.0
+models:
+  bge-m3:
+    task: embedding
+    ir: /models/bge-m3/openvino_model.xml
+    tokenizer: BAAI/bge-m3
+    pooling: mean
+    normalize: true
+    max_length: 512
+    batch_size: 16
+  bge-reranker-v2-m3:
+    task: rerank
+    ir: /models/bge-reranker-v2-m3/openvino_model.xml
+    tokenizer: BAAI/bge-reranker-v2-m3
+    activate: sigmoid
+    max_length: 512
+    batch_size: 16

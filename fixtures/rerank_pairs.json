@@ -1,0 +1,108 @@
+{
+ "pairs": [
+  [
+   "metricgator product launch",
+   "Zadania użytkownika: usunięcie namespace `hopla-staging` w klastrze; podpisanie skrótu iOS na Macu; test na iPhonie i komputerze po wdrożeniu Kask; zgoda na wydatek dla Basala, czyli modelu decyzji na RunPod po wycenie; zgoda na zbiór testowy AI; test powiadomień push i Face ID na iPhonie pod koniec Fazy 1; jednorazowe wgranie modelu domu przez ekran importu w Fazie 2; briefy Faz 3 i 4, za około 2–3 miesiące | Involving: user"
+  ],
+  [
+   "metricgator gateway LCM architecture what is metricgator",
+   "Użytkownik zapytał, czy projekty MetricGator i Polybot, które są jego osobistymi projektami, są akceptowalne, jeśli są komercyjne. | Involving: user"
+  ],
+  [
+   "polybot repo location code polymarket backtest where does polybot code live",
+   "PZT sheet Z01, phase KONCEPCJA, scale 1:500, 14.07.2025, branch ARCHITEKTURA, KOTWICA ARCHITEKCI (in investor: Zakład Handlowo-Usługowy Paweł Kotwica, Augustów). | When: 2025-07-14 | Involving: Zakład Handlowo-Usługowy Paweł Kotwica"
+  ],
+  [
+   "\"PAPERCLIP_API_KEY\" OR \"agent_jwt_run_id_mismatch\" OR \"per-agent key\"",
+   "Klucz nie udostępnia danych w czasie rzeczywistym (snapshoty, ostatni trade, wartości indeksów I:SPX), danych GPW (PKN.WA pusty, XWAR 0 tickerów, PKN martwy wpis z 2013) oraz jest ograniczony do planu darmowego. | When: 2026-09-09 | Involving: user"
+  ],
+  [
+   "Paperclip deployment location, version, how it is installed and updated",
+   "Dzisiejszy zysk portfela to -76,80 PLN (-2,28 %). | When: 2026-08-27 | Involving: użytkownik"
+  ],
+  [
+   "homepage webdesign design skill opendesign",
+   "Otwór klatki schodowej w stropie poddasza: podłoga przerwana nad biegiem 1 i 2 (void), krawędzie zabezpieczone balustradami; strop dobiega nad dolną częścią biegu 1 do wysokości skrajnego stopnia. | Involving: user"
+  ],
+  [
+   "screeps agent bot management improvements issues",
+   "Uwaga techniczna: zmiany % liczone z oficjalnych zamknięć businessradaru po dogrywce; Yahoo zwracało bary z przesuniętymi datami; korekta zapisana na przyszłość."
+  ],
+  [
+   "user personal email address mateusz skibicki contact",
+   "Asystent zaproponował dodanie skryptu gpw_session_check.py do crona w celu automatycznego monitorowania dostępności sesji GPW."
+  ],
+  [
+   "paperclip service stopped Aug 27 reason",
+   "Ex-date – od tego dnia kupno akcji nie daje już prawa do dywidendy; trzeba kupić najpóźniej 2 sesje przed zapisem (T+2 = rozliczenie 2 dni robocze po zakupie)."
+  ],
+  [
+   "metricgator-domain agent creation purpose Paperclip",
+   "Istnieje ograniczenie sandboxu, które blokuje odczyt plików poza katalogiem /root/bounty-ops/lab/clean | When: 2026-10-19 | Involving: assistant"
+  ],
+  [
+   "metricgator-domain agent apiBaseUrl empty adapter config error wake",
+   "The north exterior wall's inner face coincides with a dashed ventilation‑duct/beam line (pdf y 184.6); north rooms are measured to that inner face, so łazienka matches its 11.54 m² target exactly. | When: 2026-10-16 | Involving: assistant"
+  ],
+  [
+   "Paperclip backend agent model selection kimi-k2.7 why chosen benchmark evidence",
+   "Analiza portfela wskazuje, że odłączenie od indeksu wynika z koncentracji w M-FOOD; jego dzienna zmienność (-14% do -3%) dominowała wynik dnia, PKN ma 3‑tygodniowy spadek względem średniej, a pozostałe małe spółki dryfują na płynności. | Involving: user"
+  ],
+  [
+   "fleet pre-commit hook core.hooksPath deliberately retired unwired decision",
+   "Each new dev/analyst card is created with an explicit model/provider pin via the --model/--provider flag, and the create command supports flags directly, avoiding race conditions with the dispatcher."
+  ],
+  [
+   "z.ai GLM token usage statistics per model tracking",
+   "Sweet Home 3D model state includes file web/model/dump.json."
+  ],
+  [
+   "profiles config.yaml edit change commander fleet",
+   "Assistant produced briefing at 17:15 on 2026-09-11. | When: 2026-09-11 | Involving: assistant"
+  ],
+  [
+   "/tmp tmpfs RAM memory issues builds OOM host",
+   "PZT native raster resolution is ~3433px. | When: 2026-10-16 | Involving: assistant | image captured"
+  ],
+  [
+   "Hermes fleet auxiliary model pins deepseek-v4-flash retirement migration",
+   "Iteration budget warning triggers when budget.used >= min(ratio * budget.max_total, budget.max_total - 1) and other conditions such as ratio None, budget None, budget.max_total <=1, budget.max_total >= sys.maxsize, flag _iteration_budget_warning_injected True, or budget.used below threshold are not met. | When: 2026-09-14 | Involving: Hermes Agent | to inform the agent about approaching budget exhaustion"
+  ],
+  [
+   "autonomous development workflow patterns: direction from user, research phase, kanban card creation, verification gates, definition of done",
+   "User requested to set glm flash as primary vision model and Gemma as backup for all Hermes agents on this box. | When: 2026-09-26 | Involving: user"
+  ],
+  [
+   "ryzen pc access ssh RX 7800 XT",
+   "Fleet notes record that kanban workers previously hit an Ollama credit wall."
+  ],
+  [
+   "kodus.io kodus configuration access",
+   "User is a Polish retail investor (laika) requesting a daily briefing after GPW session in simple language. | Involving: user"
+  ],
+  [
+   "bitcoin wallet lost keys password recovery",
+   "Assistant updated paperclip from v2026.720.0 to v2026.817.0+ with all custom changes retained and verified running | When: 2026-08-22 | Involving: assistant"
+  ],
+  [
+   "polybot autonomous development kanban workers lessons learned gates CI",
+   "Hermes Agent (commander) completed the update, confirming the skill now defines the requested workflows. | When: 2026-10-07 | Involving: Hermes Agent (commander) | To fulfill user request"
+  ],
+  [
+   "metricgator kanban worker failures crashes quota lessons board cleanup",
+   "User instructs the Hermes Agent to run as a scheduled cron job, automatically deliver the final response, respond with [SILENT] if nothing new, and prefix [CRON_FAILURE] if a delegated child fails. | When: 2026-10-19 | Involving: user | to ensure proper automated delivery and error handling for the scheduled job"
+  ],
+  [
+   "transitd development pipeline dev reviewer PR waves lessons",
+   "Takeaway: UIZZE's free tier is the most agent-accessible, providing three real skills and an account-free search API | When: 2026-09-24 | Involving: assistant | to guide agent access decisions"
+  ],
+  [
+   "dywidenda PZU",
+   "PZU wypłaci dywidendę 8 października 2026 w wysokości 19,20 PLN brutto na akcję."
+  ],
+  [
+   "dywidenda PZU",
+   "Attic floor area is 71.30 m2 across 6 rooms."
+  ]
+ ]
+}

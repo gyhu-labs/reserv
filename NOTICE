@@ -1,0 +1,18 @@
+reserv
+Copyright (c) 2026 gyhu-labs
+Licensed under the MIT License (see LICENSE).
+
+This repository ships build tooling that converts and may redistribute the
+following model weights inside published images. They are third-party works,
+included under their own licences, unmodified apart from OpenVINO IR conversion:
+
+  BAAI/bge-m3                  MIT          https://huggingface.co/BAAI/bge-m3
+  BAAI/bge-reranker-v2-m3      Apache-2.0   https://huggingface.co/BAAI/bge-reranker-v2-m3
+
+Conversion is performed by `optimum-intel` / OpenVINO tooling at image build time;
+no model weights are authored by this project. Runtime dependencies keep their own
+licences (OpenVINO runtime: Apache-2.0; Intel GPU userspace components as shipped
+in the Intel `openvino/ubuntu24_runtime` image).
+
+If you redistribute images built from this repository, keep this NOTICE and the
+upstream licence texts alongside the image.

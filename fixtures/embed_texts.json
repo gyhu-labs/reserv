@@ -1,0 +1,20 @@
+{
+ "texts": [
+  "Zadania użytkownika: usunięcie namespace `hopla-staging` w klastrze; podpisanie skrótu iOS na Macu; test na iPhonie i komputerze po wdrożeniu Kask; zgoda na wydatek dla Basala, czyli modelu decyzji na RunPod po wycenie; zgoda na zbiór testowy AI; test powiadomień push i Face ID na iPhonie pod koniec Fazy 1; jednorazowe wgranie modelu domu przez ekran importu w Fazie 2; briefy Faz 3 i 4, za około 2–3 miesiące | Involving: user",
+  "Użytkownik zapytał, czy projekty MetricGator i Polybot, które są jego osobistymi projektami, są akceptowalne, jeśli są komercyjne. | Involving: user",
+  "PZT sheet Z01, phase KONCEPCJA, scale 1:500, 14.07.2025, branch ARCHITEKTURA, KOTWICA ARCHITEKCI (in investor: Zakład Handlowo-Usługowy Paweł Kotwica, Augustów). | When: 2025-07-14 | Involving: Zakład Handlowo-Usługowy Paweł Kotwica",
+  "Klucz nie udostępnia danych w czasie rzeczywistym (snapshoty, ostatni trade, wartości indeksów I:SPX), danych GPW (PKN.WA pusty, XWAR 0 tickerów, PKN martwy wpis z 2013) oraz jest ograniczony do planu darmowego. | When: 2026-09-09 | Involving: user",
+  "Dzisiejszy zysk portfela to -76,80 PLN (-2,28 %). | When: 2026-08-27 | Involving: użytkownik",
+  "Otwór klatki schodowej w stropie poddasza: podłoga przerwana nad biegiem 1 i 2 (void), krawędzie zabezpieczone balustradami; strop dobiega nad dolną częścią biegu 1 do wysokości skrajnego stopnia. | Involving: user",
+  "Uwaga techniczna: zmiany % liczone z oficjalnych zamknięć businessradaru po dogrywce; Yahoo zwracało bary z przesuniętymi datami; korekta zapisana na przyszłość.",
+  "Asystent zaproponował dodanie skryptu gpw_session_check.py do crona w celu automatycznego monitorowania dostępności sesji GPW.",
+  "Ex-date – od tego dnia kupno akcji nie daje już prawa do dywidendy; trzeba kupić najpóźniej 2 sesje przed zapisem (T+2 = rozliczenie 2 dni robocze po zakupie).",
+  "Istnieje ograniczenie sandboxu, które blokuje odczyt plików poza katalogiem /root/bounty-ops/lab/clean | When: 2026-10-19 | Involving: assistant",
+  "The north exterior wall's inner face coincides with a dashed ventilation‑duct/beam line (pdf y 184.6); north rooms are measured to that inner face, so łazienka matches its 11.54 m² target exactly. | When: 2026-10-16 | Involving: assistant",
+  "Analiza portfela wskazuje, że odłączenie od indeksu wynika z koncentracji w M-FOOD; jego dzienna zmienność (-14% do -3%) dominowała wynik dnia, PKN ma 3‑tygodniowy spadek względem średniej, a pozostałe małe spółki dryfują na płynności. | Involving: user",
+  "Each new dev/analyst card is created with an explicit model/provider pin via the --model/--provider flag, and the create command supports flags directly, avoiding race conditions with the dispatcher.",
+  "Sweet Home 3D model state includes file web/model/dump.json.",
+  "Assistant produced briefing at 17:15 on 2026-09-11. | When: 2026-09-11 | Involving: assistant",
+  "PZT native raster resolution is ~3433px. | When: 2026-10-16 | Involving: assistant | image captured"
+ ]
+}

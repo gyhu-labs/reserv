@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reserv"
+version = "0.1.0"
+description = "OpenVINO encoder inference service: embeddings + rerank with OpenAI/Cohere compatible APIs"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+  "starlette>=0.41",
+  "uvicorn>=0.30",
+  "numpy>=2",
+  "prometheus-client>=0.21",
+  "pyyaml>=6",
+  "transformers>=4.46",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard"],
+  "pinDigests": true,
+  "packageRules": [
+    {
+      "matchManagers": ["dockerfile"],
+      "pinDigests": true,
+      "labels": ["deps", "image"]
+    },
+    {
+      "matchPackageNames": ["openvino/ubuntu24_runtime"],
+      "description": "base carries the Intel GPU userspace - bump deliberately",
+      "automerge": false,
+      "labels": ["deps", "gpu-stack"]
+    },
+    {
+      "matchPackageNames": ["BAAI/bge-m3", "BAAI/bge-reranker-v2-m3"],
+      "enabled": false,
+      "description": "model revisions are pinned in scripts/convert_models.py on purpose"
+    }
+  ]
+}
