@@ -18,6 +18,22 @@ import numpy as np
 import yaml
 
 
+# The gate checks the converted IR, not the runner's CPU. OpenVINO's CPU plugin defaults to
+# bf16 execution on CPUs with AVX512-BF16/AMX, and GitHub's runner pool is mixed: the same
+# commit scored rerank spearman 1.0 on one runner and 0.9815 (FAILED) on another. Pin f32.
+GATE_CONFIG = {"INFERENCE_PRECISION_HINT": "f32"}
+
+
+def compile_cpu(ir: str):
+    import openvino as ov
+
+    core = ov.Core()
+    m = core.compile_model(ir, "CPU", GATE_CONFIG)
+    caps = core.get_property("CPU", "OPTIMIZATION_CAPABILITIES")
+    print(json.dumps({"gate_device": "CPU", "inference_precision": str(m.get_property("INFERENCE_PRECISION_HINT")),
+                      "cpu_bf16_capable": "BF16" in [str(c) for c in caps]}), flush=True)
+    return m
+
 def spearman(a: list[float], b: list[float]) -> float:
     ra = np.argsort(np.argsort(np.asarray(a)))
     rb = np.argsort(np.argsort(np.asarray(b)))
@@ -37,7 +53,7 @@ def rerank_scores(ir: str, pairs: list[list[str]], tokenizer: str, batch: int = 
     from transformers import AutoTokenizer
 
     tok = AutoTokenizer.from_pretrained(tokenizer)
-    m = ov.Core().compile_model(ir, "CPU")
+    m = compile_cpu(ir)
     names = {i.get_any_name() for i in m.inputs}
     out = m.output(0)
     scores: list[float] = []
@@ -57,7 +73,7 @@ def embed_vectors(ir: str, texts: list[str], tokenizer: str, pooling: str, batch
     from transformers import AutoTokenizer
 
     tok = AutoTokenizer.from_pretrained(tokenizer)
-    m = ov.Core().compile_model(ir, "CPU")
+    m = compile_cpu(ir)
     names = {i.get_any_name() for i in m.inputs}
     out = m.output(0)
     rows: list[np.ndarray] = []
