@@ -10,7 +10,7 @@ models:
     task: embedding
     ir: /models/bge-m3/openvino_model.xml
     tokenizer: /models/bge-m3/tokenizer      # baked; startup needs no network
-    pooling: mean
+    pooling: cls          # BAAI/bge-m3 1_Pooling/config.json: pooling_mode_cls_token=true
     normalize: true
     max_length: 512
     batch_size: 16

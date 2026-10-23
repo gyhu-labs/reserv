@@ -15,6 +15,7 @@ import os
 import sys
 
 import numpy as np
+import yaml
 
 
 def spearman(a: list[float], b: list[float]) -> float:
@@ -51,7 +52,7 @@ def rerank_scores(ir: str, pairs: list[list[str]], tokenizer: str, batch: int = 
     return scores
 
 
-def embed_vectors(ir: str, texts: list[str], tokenizer: str, batch: int = 8) -> np.ndarray:
+def embed_vectors(ir: str, texts: list[str], tokenizer: str, pooling: str, batch: int = 8) -> np.ndarray:
     import openvino as ov
     from transformers import AutoTokenizer
 
@@ -67,8 +68,11 @@ def embed_vectors(ir: str, texts: list[str], tokenizer: str, batch: int = 8) -> 
             feed["token_type_ids"] = enc.get("token_type_ids", np.zeros_like(enc["input_ids"]))
         v = np.asarray(m(feed)[out])
         if v.ndim == 3:
-            mask = np.asarray(enc["attention_mask"])[..., None]
-            v = (v * mask).sum(1) / np.clip(mask.sum(1), 1e-9, None)
+            if pooling == "cls":
+                v = v[:, 0]
+            else:
+                mask = np.asarray(enc["attention_mask"])[..., None]
+                v = (v * mask).sum(1) / np.clip(mask.sum(1), 1e-9, None)
         rows.append(v.astype(np.float32))
     arr = np.vstack(rows)
     return arr / np.clip(np.linalg.norm(arr, axis=1, keepdims=True), 1e-12, None)
@@ -82,6 +86,7 @@ def main() -> int:
     ap.add_argument("--embed-tokenizer", default="BAAI/bge-m3")
     ap.add_argument("--dtype", default="fp16", choices=["fp16", "fp32", "int8"])
     ap.add_argument("--skip-embed", action="store_true")
+    ap.add_argument("--config", default="models.yaml", help="served model registry (pooling is gated)")
     args = ap.parse_args()
 
     tol = {"fp32": 1e-2, "fp16": 5e-2, "int8": 5e-1}[args.dtype]
@@ -104,8 +109,18 @@ def main() -> int:
 
     if not args.skip_embed and os.path.isdir(os.path.join(args.models, "bge-m3")):
         texts = json.loads(open(os.path.join(args.fixtures, "embed_texts.json")).read())["texts"]
-        ref = np.asarray(json.loads(open(os.path.join(args.fixtures, "golden_embed.json")).read())["vectors"])
-        got = embed_vectors(ir_path(os.path.join(args.models, "bge-m3")), texts, args.embed_tokenizer)
+        golden = json.loads(open(os.path.join(args.fixtures, "golden_embed.json")).read())
+        ref = np.asarray(golden["vectors"])
+        # Gate the configuration that is actually served, not a copy of it: pool with
+        # models.yaml's setting and require it to match the pooling the reference was
+        # built with (taken from the model's own sentence-transformers config).
+        served = yaml.safe_load(open(args.config).read())["models"]["bge-m3"].get("pooling", "mean")
+        if served != golden.get("pooling"):
+            print(json.dumps({"check": "embedding-pooling", "served": served,
+                              "reference": golden.get("pooling"), "pass": False}))
+            print("PARITY FAILED")
+            return 1
+        got = embed_vectors(ir_path(os.path.join(args.models, "bge-m3")), texts, args.embed_tokenizer, served)
         cos = (ref * got).sum(1)
         # nearest-neighbour agreement over the fixture itself
         sim_got = got @ got.T
