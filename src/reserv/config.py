@@ -83,10 +83,13 @@ def load_settings(
     env = dict(os.environ if env is None else env)
     cfg_path = Path(config_path or env.get("RESERV_CONFIG", "/etc/reserv/models.yaml"))
     raw: dict[str, Any] = {}
-    if cfg_path.exists():
-        raw = yaml.safe_load(cfg_path.read_text()) or {}
-    elif env.get("RESERV_CONFIG_JSON"):
+    # An explicit inline config wins: the image always bakes /etc/reserv/models.yaml, so
+    # "file first" made RESERV_CONFIG_JSON a silent no-op (an embedder-only CPU deployment
+    # came up as the baked GPU config instead).
+    if env.get("RESERV_CONFIG_JSON"):
         raw = json.loads(env["RESERV_CONFIG_JSON"])
+    elif cfg_path.exists():
+        raw = yaml.safe_load(cfg_path.read_text()) or {}
 
     models: dict[str, ModelSpec] = {}
     for name, spec in (raw.get("models") or {}).items():
