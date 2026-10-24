@@ -22,8 +22,8 @@ jobs:
   models:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
           cache: pip
@@ -38,7 +38,7 @@ jobs:
         run: python scripts/convert_models.py --out artifacts/models --weight-format fp16
       - name: Conversion gate (parity vs torch fp32 references)
         run: python scripts/parity.py --models artifacts/models --fixtures fixtures --dtype fp16
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: models-fp16
           path: artifacts/models
@@ -55,8 +55,8 @@ jobs:
           - name: slim
             models: false
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         if: matrix.models
         with:
           name: models-fp16
@@ -64,8 +64,8 @@ jobs:
       - name: Empty models dir for the slim image
         if: ${{ !matrix.models }}
         run: mkdir -p models
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         if: github.event_name != 'pull_request'
         with:
           registry: ghcr.io
@@ -73,7 +73,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
         with:
           images: ${{ env.IMAGE }}
           tags: |
@@ -81,7 +81,7 @@ jobs:
             type=semver,pattern={{version}}-${{ matrix.name }}
             type=sha,suffix=-${{ matrix.name }}
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
@@ -118,7 +118,7 @@ jobs:
       - name: Sign the published image
         if: github.event_name != 'pull_request'
         continue-on-error: true
-        uses: sigstore/cosign-installer@v3
+        uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac # v3
       - name: cosign sign
         if: github.event_name != 'pull_request'
         continue-on-error: true
@@ -129,6 +129,6 @@ jobs:
       - name: SBOM
         if: github.event_name != 'pull_request'
         continue-on-error: true
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0
         with:
           image: ${{ env.IMAGE }}:sha-${{ github.sha }}-${{ matrix.name }}
