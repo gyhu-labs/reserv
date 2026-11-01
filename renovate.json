@@ -18,6 +18,11 @@
       "matchPackageNames": ["BAAI/bge-m3", "BAAI/bge-reranker-v2-m3"],
       "enabled": false,
       "description": "model revisions are pinned in scripts/convert_models.py on purpose"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions",
+      "description": "one PR (one CI run, one models artifact) for all action bumps instead of one per action"
     }
   ]
 }
