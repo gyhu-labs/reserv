@@ -12,6 +12,14 @@ on:
 
 env:
   IMAGE: ghcr.io/gyhu-labs/reserv
+  # Artifact policy (see the cleanup job): no docker build-record artifacts.
+  DOCKER_BUILD_RECORD_UPLOAD: "false"
+
+# A newer push to the same PR/branch cancels the older run, so superseded runs never
+# upload another 2 GB models artifact. Pushes to master and tags always finish.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -38,11 +46,15 @@ jobs:
         run: python scripts/convert_models.py --out artifacts/models --weight-format fp16
       - name: Conversion gate (parity vs torch fp32 references)
         run: python scripts/parity.py --models artifacts/models --fixtures fixtures --dtype fp16
+      # Artifact policy: models-fp16 (~2.1 GB) is only a hand-off from `models` to `build`
+      # inside one run. It lives 1 day at most and the cleanup job deletes it when the run
+      # ends. It counts against the gyhu-labs org Actions storage quota shared with hopla;
+      # 34 kept copies (71 GB) filled that quota on 2026-10-31 and blocked every org CI upload.
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: models-fp16
           path: artifacts/models
-          retention-days: 14
+          retention-days: 1
 
   build:
     needs: models
@@ -132,3 +144,17 @@ jobs:
         uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0
         with:
           image: ${{ env.IMAGE }}:sha-${{ github.sha }}-${{ matrix.name }}
+
+  cleanup:
+    # Delete the models hand-off artifact as soon as the run no longer needs it,
+    # whether the build passed, failed or was cancelled.
+    needs: [models, build]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write
+    steps:
+      - uses: geekyeggo/delete-artifact@176a747ab7e287e3ff4787bf8a148716375ca118 # v6.0.0
+        with:
+          name: models-fp16
+          failOnError: false
